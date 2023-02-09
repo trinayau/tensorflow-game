@@ -34,9 +34,9 @@ async function main(){
             const {score, handedness} = hand;
             console.log(score, handedness)
             if(score > 0.85 && handedness === 'Right') {
-                ditto.style.left = `calc(${prvPos} + 5px)`
+                ditto.style.left = `calc(${prvPos} + 10px)`
             } else if(score > 0.85 && handedness ==='Left') {
-                ditto.style.left = `calc(${prvPos} - 5px)`
+                ditto.style.left = `calc(${prvPos} - 10px)`
             }
         }
         
