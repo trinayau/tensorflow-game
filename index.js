@@ -6,7 +6,39 @@ const config = {
     }
 }
 
-console.log('hi')
+async function createDetector(){
+    return window.handPoseDetection.createDetector(window.handPoseDetection.SupportedModels.MediaPipeHands, {
+        runtime: 'mediapipe',
+        modelType: 'lite',
+        maxHands: 1,
+        solutionPath: 'https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915'
+
+    })
+
+}
+
+async function main(){
+    const video = document.querySelector('#pose-video')
+    const detector = await createDetector()
+    console.log('ML model created')
+
+    const detectHand = async()=>{
+        const hands = await detector.estimateHands(video, {flipHorizontal: true})
+        console.log(hands)
+
+        for(const hand of hands){
+            const {score, handedness} = hand;
+            console.log(score, handedness)
+        }
+        
+    setTimeout(()=>{
+        detectHand()
+    }, 1000/config.video.fps)
+    }
+    detectHand()
+    
+    
+}
 
 async function initVideo(width, height, fps){
     const constraints = {
@@ -40,7 +72,8 @@ window.addEventListener('DOMContentLoaded', () => {
     initVideo(config.video.width, config.video.height, config.video.fps).then(video => {
         video.play()
         video.addEventListener('loadeddata', event=>{
-            console.log('video loaded')
+            console.log('camera loaded')
+            main()
 
         })
     })
