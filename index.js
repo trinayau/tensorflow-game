@@ -1,3 +1,5 @@
+const ditto = document.getElementById('image')
+const cssStyle = window.getComputedStyle(ditto)
 const config = {
     video:{
         width: 200,
@@ -24,11 +26,18 @@ async function main(){
 
     const detectHand = async()=>{
         const hands = await detector.estimateHands(video, {flipHorizontal: true})
-        console.log(hands)
+
+        const prvPos = cssStyle.getPropertyValue('left');
+    
 
         for(const hand of hands){
             const {score, handedness} = hand;
             console.log(score, handedness)
+            if(score > 0.85 && handedness === 'Right') {
+                ditto.style.left = `calc(${prvPos} + 5px)`
+            } else if(score > 0.85 && handedness ==='Left') {
+                ditto.style.left = `calc(${prvPos} - 5px)`
+            }
         }
         
     setTimeout(()=>{
