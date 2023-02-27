@@ -1,5 +1,8 @@
 const ditto = document.getElementById('image')
 const cssStyle = window.getComputedStyle(ditto)
+const numberText = document.getElementById('number')
+const directionText = document.getElementById('direction')
+const directionText2 = document.getElementById('direction2')
 const config = {
     video:{
         width: 200,
@@ -29,14 +32,21 @@ async function main(){
 
         const prvPos = cssStyle.getPropertyValue('left');
     
-
         for(const hand of hands){
             const {score, handedness} = hand;
             console.log(score, handedness)
             if(score > 0.85 && handedness === 'Right') {
                 ditto.style.left = `calc(${prvPos} + 10px)`
+             numberText.innerHTML = parseInt(numberText.innerHTML) + 1
+             directionText.innerHTML = 'right'
+             directionText2.innerHTML = 'right'
+             checkConfetti()
             } else if(score > 0.85 && handedness ==='Left') {
                 ditto.style.left = `calc(${prvPos} - 10px)`
+                numberText.innerHTML = parseInt(numberText.innerHTML) + 1
+                directionText.innerHTML = 'left'
+                directionText2.innerHTML = 'left'
+                checkConfetti()
             }
         }
         
@@ -48,6 +58,20 @@ async function main(){
     
     
 }
+
+const checkConfetti = () => {
+    if (numberText.innerHTML % 100 === 0) {
+        setTimeout(function() {
+            confetti.start()
+        }, 100);
+        setTimeout(function() {
+            confetti.stop()
+        }
+        , 3000);
+
+    }
+}
+
 
 async function initVideo(width, height, fps){
     const constraints = {

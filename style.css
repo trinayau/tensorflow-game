@@ -81,6 +81,16 @@
 
   }
 
+  .description{
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+  }
+
   @keyframes float {
     0% {
       transform: translateY(0);

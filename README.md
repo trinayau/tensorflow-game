@@ -5,6 +5,7 @@
 ## Notes
 - Deploy ML models with JS and run in browser
 - Using hand pose model from TFJS
+- Confetti library for confetti animation
 
 ## Future
 - Use faceAPI to recognise emotions
